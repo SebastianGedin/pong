@@ -150,12 +150,12 @@ public class PongGame {
 		//Bouncing mechanics
 		if (ball.intersects(batLeft) && ball.getDX() < 0) {
 			ball.setDX(-ball.getDX());
-			ball.setDY(-(batLeft.getY() + batLeft.getHeight() / 2 - ball.getY() + ball.getHeight() / 2) / 200);
+			ball.setDY(-(batLeft.getY() + batLeft.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 200);
 			if (ball.getY() + ball.getHeight() / 2 > batLeft.getY() + batLeft.getHeight() / 2){
-				batLeft.setOscillation(0.015, 0.001, true);
+				batLeft.setOscillation(Math.abs(-(batLeft.getY() + batLeft.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 2000), 0.001, true);
 			}
 			else {
-				batLeft.setOscillation(0.015, 0.001, false);
+				batLeft.setOscillation(Math.abs(-(batLeft.getY() + batLeft.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 2000), 0.001, false);
 			}
 		}
 		
@@ -163,10 +163,10 @@ public class PongGame {
 			ball.setDX(-ball.getDX());
 			ball.setDY(-(batRight.getY() + batRight.getHeight() / 2 - ball.getY() + ball.getHeight() / 2) / 200);
 			if (ball.getY() + ball.getHeight() / 2 > batRight.getY() + batRight.getHeight() / 2){
-				batRight.setOscillation(0.015, 0.001, true);
+				batRight.setOscillation(Math.abs(-(batRight.getY() + batRight.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 2000), 0.001, true);
 			}
 			else {
-				batRight.setOscillation(0.015, 0.001, false);
+				batRight.setOscillation(Math.abs(-(batRight.getY() + batRight.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 2000), 0.001, false);
 			}
 		}
 		
