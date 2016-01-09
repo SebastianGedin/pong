@@ -26,8 +26,8 @@ public class PongGame {
 	private List<Entity> entities = new ArrayList<>();
 	private List<MoveableEntity> movableEntities = new ArrayList<>();
 	private Ball ball;
-	private Bat batLeft;
-	private Bat batRight;
+	private BatLeft batLeft;
+	private BatRight batRight;
 	private Background background;
 	private int backgroundState = -2;
 	
@@ -102,7 +102,7 @@ public class PongGame {
 		// background = new Background(-WIDTH * 2, 0, 0, WIDTH * 5, HEIGHT);
 		
 		// batLeft = new Bat(30, HEIGHT / 2, -2, 15, 80, Keyboard.KEY_W, Keyboard.KEY_S, 0.3);
-		batLeft = new Bat(4, -2, Keyboard.KEY_W, Keyboard.KEY_S, 0.3);
+		batLeft = new BatLeft(4, -2, Keyboard.KEY_W, Keyboard.KEY_S, 0.3);
 		batLeft.declareVertex(30, HEIGHT / 2);
 		batLeft.declareVertex(45, HEIGHT / 2);
 		batLeft.declareVertex(45, HEIGHT / 2 + 80);
@@ -112,7 +112,7 @@ public class PongGame {
 		
 		
 		// batRight =new Bat(WIDTH - 40, HEIGHT / 2 - 80 /2, -2, 15, 80, Keyboard.KEY_UP, Keyboard.KEY_DOWN, 0.3);
-		batRight = new Bat(4, -2, Keyboard.KEY_UP, Keyboard.KEY_DOWN, 0.3);
+		batRight = new BatRight(4, -2, Keyboard.KEY_UP, Keyboard.KEY_DOWN, 0.3);
 		batRight.declareVertex(WIDTH - 45, HEIGHT / 2);
 		batRight.declareVertex(WIDTH - 30, HEIGHT / 2);
 		batRight.declareVertex(WIDTH - 30, HEIGHT / 2 + 80);
@@ -146,28 +146,44 @@ public class PongGame {
 		for (MoveableEntity entity : movableEntities) {
 			entity.update(delta);
 		}
-		
-		if (batLeft.oscillate) {
-			batLeft.oscillate();
-		}
 	
-		//Bouncing mechanics.
+		//Bouncing mechanics
 		if (ball.intersects(batLeft) && ball.getDX() < 0) {
 			ball.setDX(-ball.getDX());
 			ball.setDY(-(batLeft.getY() + batLeft.getHeight() / 2 - ball.getY() + ball.getHeight() / 2) / 200);
-			batLeft.setOscillation(0.01, 0.001);
+			if (ball.getY() + ball.getHeight() / 2 > batLeft.getY() + batLeft.getHeight() / 2){
+				batLeft.setOscillation(0.015, 0.001, true);
+			}
+			else {
+				batLeft.setOscillation(0.015, 0.001, false);
+			}
 		}
 		
 		if (ball.intersects(batRight) && ball.getDX() > 0) {
 			ball.setDX(-ball.getDX());
 			ball.setDY(-(batRight.getY() + batRight.getHeight() / 2 - ball.getY() + ball.getHeight() / 2) / 200);
+			if (ball.getY() + ball.getHeight() / 2 > batRight.getY() + batRight.getHeight() / 2){
+				batRight.setOscillation(0.015, 0.001, true);
+			}
+			else {
+				batRight.setOscillation(0.015, 0.001, false);
+			}
 		}
 		
 		if ((ball.getY() < 0 && ball.getDY() < 0) || (ball.getY() > HEIGHT && ball.getDY() > 0)) {
 			ball.setDY(-ball.getDY());
 		}
 		
-		//Switching platform mechanic.
+		//Check for bat oscillation
+		if (batLeft.oscillate) {
+			batLeft.oscillate();
+		}
+		
+		if (batRight.oscillate) {
+			batRight.oscillate();
+		}
+		
+		//Switching platform mechanic
 		if (ball.getX() <= 0) {
 			ball.setDX(0.4);
 			background.setDX(0.5);
