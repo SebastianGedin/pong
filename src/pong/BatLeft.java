@@ -6,6 +6,11 @@ public class BatLeft extends AbstractBat {
 	
 	public BatLeft(int n, double z, int upKey, int downKey, double speed) {
 		super(n, z, upKey, downKey, speed);
+		noFire = PongGame.loadTexture("leftSpaceship");
+		botFire = PongGame.loadTexture("leftSpaceshipBot");
+		topFire = PongGame.loadTexture("leftSpaceshipTop");
+		allFire = PongGame.loadTexture("leftSpaceshipAll");
+		noFire();
 	}
 
 	public void oscillate() {
@@ -20,6 +25,7 @@ public class BatLeft extends AbstractBat {
 					setDRotate(0);
 					oscillate = false;
 					x = 0;
+					noFire();
 				}
 			}
 		}
@@ -35,6 +41,7 @@ public class BatLeft extends AbstractBat {
 					setDRotate(0);
 					oscillate = false;
 					x = 0;
+					noFire();
 				}
 			}
 		}

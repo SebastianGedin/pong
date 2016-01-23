@@ -88,6 +88,8 @@ public class PongGame {
 		glOrtho(0, WIDTH, HEIGHT, 0, 0, 800);
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_BLEND);
+	    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
 	private void setUpEntities() {
@@ -103,29 +105,29 @@ public class PongGame {
 		
 		// batLeft = new Bat(30, HEIGHT / 2, -2, 15, 80, Keyboard.KEY_W, Keyboard.KEY_S, 0.3);
 		batLeft = new BatLeft(4, -2, Keyboard.KEY_W, Keyboard.KEY_S, 0.3);
-		batLeft.declareVertex(30, HEIGHT / 2);
-		batLeft.declareVertex(45, HEIGHT / 2);
-		batLeft.declareVertex(45, HEIGHT / 2 + 80);
-		batLeft.declareVertex(30, HEIGHT / 2 + 80);
+		batLeft.declareVertex(10, HEIGHT / 2);
+		batLeft.declareVertex(55, HEIGHT / 2);
+		batLeft.declareVertex(55, HEIGHT / 2 + 90);
+		batLeft.declareVertex(10, HEIGHT / 2 + 90);
 		entities.add(batLeft);
 		movableEntities.add(batLeft);
 		
 		
 		// batRight =new Bat(WIDTH - 40, HEIGHT / 2 - 80 /2, -2, 15, 80, Keyboard.KEY_UP, Keyboard.KEY_DOWN, 0.3);
 		batRight = new BatRight(4, -2, Keyboard.KEY_UP, Keyboard.KEY_DOWN, 0.3);
-		batRight.declareVertex(WIDTH - 45, HEIGHT / 2);
-		batRight.declareVertex(WIDTH - 30, HEIGHT / 2);
-		batRight.declareVertex(WIDTH - 30, HEIGHT / 2 + 80);
-		batRight.declareVertex(WIDTH - 45, HEIGHT / 2 + 80);
+		batRight.declareVertex(WIDTH - 55, HEIGHT / 2);
+		batRight.declareVertex(WIDTH - 10, HEIGHT / 2);
+		batRight.declareVertex(WIDTH - 10, HEIGHT / 2 + 90);
+		batRight.declareVertex(WIDTH - 55, HEIGHT / 2 + 90);
 		entities.add(batRight);
 		movableEntities.add(batRight);
 		
 		// ball = new Ball(WIDTH / 2 - 10 / 2, HEIGHT / 2 - 10 / 2, -2, 10, 10);
 		ball = new Ball(4, -2);
-		ball.declareVertex(WIDTH / 2 - 5, HEIGHT / 2 - 5);
-		ball.declareVertex(WIDTH / 2 + 5, HEIGHT / 2 - 5);
-		ball.declareVertex(WIDTH / 2 + 5, HEIGHT / 2 + 5);
-		ball.declareVertex(WIDTH / 2 - 5, HEIGHT / 2 + 5);
+		ball.declareVertex(WIDTH / 2 - 7, HEIGHT / 2 - 7);
+		ball.declareVertex(WIDTH / 2 + 7, HEIGHT / 2 - 7);
+		ball.declareVertex(WIDTH / 2 + 7, HEIGHT / 2 + 7);
+		ball.declareVertex(WIDTH / 2 - 7, HEIGHT / 2 + 7);
 		ball.setDX(-0.3);
 		entities.add(ball);
 		movableEntities.add(ball);
@@ -153,9 +155,11 @@ public class PongGame {
 			ball.setDY(-(batLeft.getY() + batLeft.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 200);
 			if (ball.getY() + ball.getHeight() / 2 > batLeft.getY() + batLeft.getHeight() / 2){
 				batLeft.setOscillation(Math.abs(-(batLeft.getY() + batLeft.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 2000), 0.001, true);
+				batLeft.botFire();
 			}
 			else {
 				batLeft.setOscillation(Math.abs(-(batLeft.getY() + batLeft.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 2000), 0.001, false);
+				batLeft.topFire();
 			}
 		}
 		
@@ -164,9 +168,11 @@ public class PongGame {
 			ball.setDY(-(batRight.getY() + batRight.getHeight() / 2 - ball.getY() + ball.getHeight() / 2) / 200);
 			if (ball.getY() + ball.getHeight() / 2 > batRight.getY() + batRight.getHeight() / 2){
 				batRight.setOscillation(Math.abs(-(batRight.getY() + batRight.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 2000), 0.001, true);
+				batRight.botFire();
 			}
 			else {
 				batRight.setOscillation(Math.abs(-(batRight.getY() + batRight.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 2000), 0.001, false);
+				batRight.topFire();
 			}
 		}
 		
@@ -187,23 +193,27 @@ public class PongGame {
 		if (ball.getX() <= 0) {
 			ball.setDX(0.4);
 			background.setDX(0.5);
+			batRight.allFire();
 		}
 		if (background.getX() > WIDTH * backgroundState) {
 			background.setDX(0);
 			background.setX(WIDTH * backgroundState);
 			ball.setDX(-0.3);
 			backgroundState += 1;
+			batRight.noFire();
 		}
 		
 		if (ball.getX() >= WIDTH) {
 			ball.setDX(-0.4);
 			background.setDX(-0.5);
+			batLeft.allFire();
 		}
 		if (background.getX() < WIDTH * backgroundState - WIDTH) {
 			background.setDX(0);
 			background.setX(WIDTH * backgroundState - WIDTH);
 			ball.setDX(0.3);
 			backgroundState -= 1;
+			batLeft.noFire();
 		}
 	}
 	

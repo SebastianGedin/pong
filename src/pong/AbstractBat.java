@@ -3,13 +3,21 @@ package pong;
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glVertex3d;
 
 import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.opengl.Texture;
 
 import entities.AbstractMoveableEntity;
 
 public abstract class AbstractBat extends AbstractMoveableEntity {
+	
+	protected Texture texture;
+	protected Texture noFire;
+	protected Texture topFire;
+	protected Texture botFire;
+	protected Texture allFire;
 	
 	protected int upKey;
 	protected int downKey;
@@ -27,19 +35,39 @@ public abstract class AbstractBat extends AbstractMoveableEntity {
 		this.downKey = downKey;
 		this.speed = speed;
 	}
-
-	@Override
+	
 	public void draw() {
 		int i = 0;
+		texture.bind();
 		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);
 			glVertex3d(vertices.get(i)[0], vertices.get(i)[1], z);
 			i++;
+			glTexCoord2f(1, 0);
 			glVertex3d(vertices.get(i)[0], vertices.get(i)[1], z);
 			i++;
+			glTexCoord2f(1, 1);
 			glVertex3d(vertices.get(i)[0], vertices.get(i)[1], z);
 			i++;
+			glTexCoord2f(0, 1);
 			glVertex3d(vertices.get(i)[0], vertices.get(i)[1], z);
 		glEnd();
+	}
+	
+	public void topFire() {
+		texture = topFire;
+	}
+	
+	public void botFire() {
+		texture = botFire;
+	}
+	
+	public void allFire() {
+		texture = allFire;
+	}
+	
+	public void noFire() {
+		texture = noFire;
 	}
 	
 	public int getUpKey() {
