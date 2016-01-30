@@ -18,6 +18,7 @@ public abstract class AbstractBat extends AbstractMoveableEntity {
 	protected Texture topFire;
 	protected Texture botFire;
 	protected Texture allFire;
+	protected Texture inverted;
 	
 	protected int upKey;
 	protected int downKey;
@@ -68,6 +69,10 @@ public abstract class AbstractBat extends AbstractMoveableEntity {
 	
 	public void noFire() {
 		texture = noFire;
+	}
+	
+	public void allFireInverted() {
+		texture = inverted;
 	}
 	
 	public int getUpKey() {

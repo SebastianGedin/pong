@@ -11,14 +11,16 @@ public class BatRight extends AbstractBat {
 		botFire = PongGame.loadTexture("rightSpaceshipBot");
 		topFire = PongGame.loadTexture("rightSpaceshipTop");
 		allFire = PongGame.loadTexture("rightSpaceshipAll");
+		inverted = PongGame.loadTexture("leftSpaceshipAll");
 		noFire();
 	}
 	
+	@Override
 	public void oscillate() {
 		if (!clockwise) {
 			if (dampening * x < amplitude) {
 				setDRotate((amplitude - dampening*x)*Math.cos(x) - dampening*Math.sin(x));
-				x += 0.5;
+				x += 0.35;
 			}
 			else {
 				setDRotate(-0.0012);
@@ -34,7 +36,7 @@ public class BatRight extends AbstractBat {
 		else {
 			if (dampening * x < amplitude) {
 				setDRotate(-((amplitude - dampening*x)*Math.cos(x) - dampening*Math.sin(x)));
-				x += 0.5;
+				x += 0.35;
 			}
 			else {
 				setDRotate(0.0012);

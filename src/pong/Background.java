@@ -12,7 +12,7 @@ public class Background extends AbstractMoveableEntity {
 		super(n, z);
 	}
 
-	Texture background = PongGame.loadTexture("background-test");
+	Texture background = PongGame.loadTexture("spacetest");
 
 	@Override
 	public void draw() {

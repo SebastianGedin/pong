@@ -154,11 +154,11 @@ public class PongGame {
 			ball.setDX(-ball.getDX());
 			ball.setDY(-(batLeft.getY() + batLeft.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 200);
 			if (ball.getY() + ball.getHeight() / 2 > batLeft.getY() + batLeft.getHeight() / 2){
-				batLeft.setOscillation(Math.abs(-(batLeft.getY() + batLeft.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 2000), 0.001, true);
+				batLeft.setOscillation(Math.abs(-(batLeft.getY() + batLeft.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 4000), 0.002, true);
 				batLeft.botFire();
 			}
 			else {
-				batLeft.setOscillation(Math.abs(-(batLeft.getY() + batLeft.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 2000), 0.001, false);
+				batLeft.setOscillation(Math.abs(-(batLeft.getY() + batLeft.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 4000), 0.002, false);
 				batLeft.topFire();
 			}
 		}
@@ -167,11 +167,11 @@ public class PongGame {
 			ball.setDX(-ball.getDX());
 			ball.setDY(-(batRight.getY() + batRight.getHeight() / 2 - ball.getY() + ball.getHeight() / 2) / 200);
 			if (ball.getY() + ball.getHeight() / 2 > batRight.getY() + batRight.getHeight() / 2){
-				batRight.setOscillation(Math.abs(-(batRight.getY() + batRight.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 2000), 0.001, true);
+				batRight.setOscillation(Math.abs(-(batRight.getY() + batRight.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 4000), 0.002, true);
 				batRight.botFire();
 			}
 			else {
-				batRight.setOscillation(Math.abs(-(batRight.getY() + batRight.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 2000), 0.001, false);
+				batRight.setOscillation(Math.abs(-(batRight.getY() + batRight.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 4000), 0.002, false);
 				batRight.topFire();
 			}
 		}
@@ -194,6 +194,7 @@ public class PongGame {
 			ball.setDX(0.4);
 			background.setDX(0.5);
 			batRight.allFire();
+			batLeft.allFireInverted();
 		}
 		if (background.getX() > WIDTH * backgroundState) {
 			background.setDX(0);
@@ -201,12 +202,14 @@ public class PongGame {
 			ball.setDX(-0.3);
 			backgroundState += 1;
 			batRight.noFire();
+			batLeft.noFire();
 		}
 		
 		if (ball.getX() >= WIDTH) {
 			ball.setDX(-0.4);
 			background.setDX(-0.5);
 			batLeft.allFire();
+			batRight.allFireInverted();
 		}
 		if (background.getX() < WIDTH * backgroundState - WIDTH) {
 			background.setDX(0);
@@ -214,6 +217,7 @@ public class PongGame {
 			ball.setDX(0.3);
 			backgroundState -= 1;
 			batLeft.noFire();
+			batRight.noFire();
 		}
 	}
 	
