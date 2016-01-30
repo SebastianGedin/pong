@@ -29,7 +29,7 @@ public class PongGame {
 	private BatLeft batLeft;
 	private BatRight batRight;
 	private Background background;
-	private int backgroundState = -2;
+	private int backgroundState = -4;
 	
 	public PongGame() {
 		setUpDisplay();
@@ -95,10 +95,10 @@ public class PongGame {
 	private void setUpEntities() {
 		
 		background = new Background(4, 0);
-		background.declareVertex(-WIDTH * 2, 0);
-		background.declareVertex(WIDTH * 3, 0);
-		background.declareVertex(WIDTH * 3, HEIGHT);
-		background.declareVertex(-WIDTH * 2, HEIGHT);
+		background.declareVertex(-WIDTH * 4, -80);
+		background.declareVertex(WIDTH * 4, -80);
+		background.declareVertex(WIDTH * 4, HEIGHT + 80);
+		background.declareVertex(-WIDTH * 4, HEIGHT + 80);
 		entities.add(background);
 		movableEntities.add(background);
 		// background = new Background(-WIDTH * 2, 0, 0, WIDTH * 5, HEIGHT);
