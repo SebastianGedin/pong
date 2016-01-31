@@ -110,6 +110,5 @@ public abstract class AbstractBat extends AbstractMoveableEntity {
 		this.clockwise = clockwise;
 	}
 	
-	public void oscillate() {
-	}
+	public abstract void oscillate();
 }
