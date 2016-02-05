@@ -1,5 +1,9 @@
 package pong;
 
+/**
+ * Main loop of the game.
+ */
+
 import java.util.List;
 import java.util.ArrayList;
 import org.lwjgl.*;
@@ -32,10 +36,14 @@ public class PongGame {
 	private int backgroundState = -4;
 	
 	public PongGame() {
+		
+		//Game setup
 		setUpDisplay();
 		setUpOpengl();
 		setUpEntities();
 		setUpTimer();
+		
+		//Main loop starts here
 		while (isRunning) {
 			render();
 			Display.update();
@@ -50,6 +58,9 @@ public class PongGame {
 		System.exit(0);
 	}
 	
+	/**
+	 * Checks for user input.
+	 */
 	private void input() {
 		
 		batLeft.controls();
@@ -64,11 +75,22 @@ public class PongGame {
 		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	}
 	
+	/**
+	 * Calculates the change in time since getDelta()
+	 * was last called.
+	 * 
+	 * @return	change in time since getDelta()
+	 * was last called
+	 */
 	private int getDelta() {
 		long currentTime = getTime();
 		int delta = (int) (currentTime - lastFrame);
 		lastFrame = getTime();
 		return delta;
+	}
+
+	private void setUpTimer() {
+		lastFrame = getTime();
 	}
 	
 	private void setUpDisplay() {
@@ -101,9 +123,7 @@ public class PongGame {
 		background.declareVertex(-WIDTH * 4, HEIGHT + 80);
 		entities.add(background);
 		movableEntities.add(background);
-		// background = new Background(-WIDTH * 2, 0, 0, WIDTH * 5, HEIGHT);
 		
-		// batLeft = new Bat(30, HEIGHT / 2, -2, 15, 80, Keyboard.KEY_W, Keyboard.KEY_S, 0.3);
 		batLeft = new BatLeft(-2, Keyboard.KEY_W, Keyboard.KEY_S, 0.3);
 		batLeft.declareVertex(10, HEIGHT / 2);
 		batLeft.declareVertex(55, HEIGHT / 2);
@@ -113,7 +133,6 @@ public class PongGame {
 		movableEntities.add(batLeft);
 		
 		
-		// batRight =new Bat(WIDTH - 40, HEIGHT / 2 - 80 /2, -2, 15, 80, Keyboard.KEY_UP, Keyboard.KEY_DOWN, 0.3);
 		batRight = new BatRight(-2, Keyboard.KEY_UP, Keyboard.KEY_DOWN, 0.3);
 		batRight.declareVertex(WIDTH - 55, HEIGHT / 2);
 		batRight.declareVertex(WIDTH - 10, HEIGHT / 2);
@@ -122,7 +141,6 @@ public class PongGame {
 		entities.add(batRight);
 		movableEntities.add(batRight);
 		
-		// ball = new Ball(WIDTH / 2 - 10 / 2, HEIGHT / 2 - 10 / 2, -2, 10, 10);
 		ball = new Ball(-2);
 		ball.declareVertex(WIDTH / 2 - 7, HEIGHT / 2 - 7);
 		ball.declareVertex(WIDTH / 2 + 7, HEIGHT / 2 - 7);
@@ -133,10 +151,6 @@ public class PongGame {
 		movableEntities.add(ball);
 	}
 	
-	private void setUpTimer() {
-		lastFrame = getTime();
-	}
-	
 	private void render() {
 		glClear(GL_COLOR_BUFFER_BIT);
 		for (Entity entity : entities) {
@@ -144,12 +158,17 @@ public class PongGame {
 		}
 	}
 	
+	/**
+	 * This method contains the logic of the game. 
+	 * 
+	 * @param delta
+	 */
 	private void logic(int delta) {
 		for (MoveableEntity entity : movableEntities) {
 			entity.update(delta);
 		}
 	
-		//Bouncing mechanics
+		//Bouncing mechanics for ball intersecting bat or border
 		if (ball.intersects(batLeft) && ball.getDX() < 0) {
 			ball.setDX(-ball.getDX());
 			ball.setDY(-(batLeft.getY() + batLeft.getHeight() / 2 - (ball.getY() + ball.getHeight() / 2)) / 200);

@@ -62,6 +62,9 @@ public abstract class AbstractBat extends AbstractMoveableEntity {
 	 * must have been declared.
 	 */
 	public void draw() {
+		if (vertices.get(3)[0] == -1) {
+			throw new IllegalStateException("Must declare precisely 4 vertices");
+		}
 		int i = 0;
 		texture.bind();
 		glBegin(GL_QUADS);

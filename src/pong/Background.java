@@ -27,6 +27,9 @@ public class Background extends AbstractMoveableEntity {
 	 */
 	@Override
 	public void draw() {
+		if (vertices.get(3)[0] == -1) {
+			throw new IllegalStateException("Must declare precisely 4 vertices");
+		}
 		int i = 0;
 		background.bind();
 		glBegin(GL_QUADS);

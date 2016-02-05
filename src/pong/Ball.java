@@ -1,5 +1,9 @@
 package pong;
 
+/**
+ * A ball in the Pong game. Rectangle shaped.
+ */
+
 import entities.AbstractMoveableEntity;
 import org.newdawn.slick.opengl.Texture;
 
@@ -13,8 +17,15 @@ public class Ball extends AbstractMoveableEntity {
 		super(4, z);
 	}
 
+	/**
+	 * Draws the background. Four vertices
+	 * must have been declared.
+	 */
 	@Override
 	public void draw() {
+		if (vertices.get(3)[0] == -1) {
+			throw new IllegalStateException("Must declare precisely 4 vertices");
+		}
 		int i = 0;
 		texture.bind();
 		glBegin(GL_QUADS);

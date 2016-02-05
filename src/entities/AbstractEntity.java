@@ -30,9 +30,10 @@ public abstract class AbstractEntity implements Entity {
 			if (vertices.get(i)[0] == -1) {
 				vertices.get(i)[0] = x;
 				vertices.get(i)[1] = y;
-				break;
+				return;
 			}
 		}
+		throw new IllegalStateException("All vertices have already been declared");
 	}
 	
 	@Override
