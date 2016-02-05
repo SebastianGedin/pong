@@ -30,19 +30,30 @@ public class AbstractEntityTest {
 	@After
 	public void tearDown() throws Exception {
 	}
+	
+	public static class Entity extends AbstractEntity {
+
+		public Entity(int n, double z) {
+			super(n, z);
+		}
+
+		@Override
+		public void draw() {
+		}
+	}
 
 	/**
 	 * Tests that the constructor sets up the correct number of vertices.
 	 */
 	@Test
 	public void testConstructor() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		assertEquals(4, test.vertices.size());
 	}
 	
 	@Test
 	public void testDeclareVertex() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		test.declareVertex(50, 100);
 		test.declareVertex(75, 100);
 		test.declareVertex(75, 10);
@@ -55,7 +66,7 @@ public class AbstractEntityTest {
 	
 	@Test
 	public void testGetLines() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		test.declareVertex(50, 100);
 		test.declareVertex(75, 100);
 		test.declareVertex(75, 10);
@@ -75,7 +86,7 @@ public class AbstractEntityTest {
 	
 	@Test
 	public void testGetX() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		test.declareVertex(50, 100);
 		test.declareVertex(75, 100);
 		test.declareVertex(75, 10);
@@ -85,7 +96,7 @@ public class AbstractEntityTest {
 	
 	@Test
 	public void testGetY() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		test.declareVertex(50, 100);
 		test.declareVertex(75, 100);
 		test.declareVertex(75, 10);
@@ -95,7 +106,7 @@ public class AbstractEntityTest {
 	
 	@Test
 	public void testGetWidth() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		test.declareVertex(50, 100);
 		test.declareVertex(75, 100);
 		test.declareVertex(75, 10);
@@ -105,7 +116,7 @@ public class AbstractEntityTest {
 	
 	@Test
 	public void testGetHeight() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		test.declareVertex(50, 100);
 		test.declareVertex(75, 100);
 		test.declareVertex(75, 10);
@@ -118,7 +129,7 @@ public class AbstractEntityTest {
 	 */
 	@Test
 	public void testSetXGreater() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		test.declareVertex(50, 100);
 		test.declareVertex(75, 100);
 		test.declareVertex(75, 10);
@@ -135,7 +146,7 @@ public class AbstractEntityTest {
 	 */
 	@Test
 	public void testSetXSmaller() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		test.declareVertex(50, 100);
 		test.declareVertex(75, 100);
 		test.declareVertex(75, 10);
@@ -152,7 +163,7 @@ public class AbstractEntityTest {
 	 */
 	@Test
 	public void testSetYGreater() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		test.declareVertex(50, 100);
 		test.declareVertex(75, 100);
 		test.declareVertex(75, 10);
@@ -169,7 +180,7 @@ public class AbstractEntityTest {
 	 */
 	@Test
 	public void testSetYSmaller() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		test.declareVertex(50, 100);
 		test.declareVertex(75, 100);
 		test.declareVertex(75, 10);
@@ -183,12 +194,12 @@ public class AbstractEntityTest {
 	
 	@Test
 	public void testIntersectsTrue() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		test.declareVertex(50, 100);
 		test.declareVertex(75, 100);
 		test.declareVertex(75, 10);
 		test.declareVertex(50, 10);
-		Ball test2 = new Ball(3, 0);
+		Entity test2 = new Entity(3, 0);
 		test2.declareVertex(40, 100);
 		test2.declareVertex(80, 80);
 		test2.declareVertex(40, 5);
@@ -197,12 +208,12 @@ public class AbstractEntityTest {
 	
 	@Test
 	public void testIntersectsFalse() {
-		Ball test = new Ball(4, 0);
+		Entity test = new Entity(4, 0);
 		test.declareVertex(50, 100);
 		test.declareVertex(75, 100);
 		test.declareVertex(75, 90);
 		test.declareVertex(50, 90);
-		Ball test2 = new Ball(3, 0);
+		Entity test2 = new Entity(3, 0);
 		test2.declareVertex(40, 99);
 		test2.declareVertex(50, 85);
 		test2.declareVertex(40, 85);

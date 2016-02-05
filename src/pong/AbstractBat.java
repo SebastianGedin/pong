@@ -1,5 +1,13 @@
 package pong;
 
+/**
+ * An abstract class for a bat in the Pong game. Bats can
+ * move up and down by binding the controls to certain
+ * keys. The are rectangularly shaped entities. In the
+ * game the bats are spaceships with fire engine thus
+ * their texture can change based on their movement.
+ */
+
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
@@ -13,7 +21,8 @@ import entities.AbstractMoveableEntity;
 
 public abstract class AbstractBat extends AbstractMoveableEntity {
 	
-	protected Texture texture;
+	//Different texture depending on movement.
+	protected Texture texture; //Standard texture
 	protected Texture noFire;
 	protected Texture topFire;
 	protected Texture botFire;
@@ -24,19 +33,34 @@ public abstract class AbstractBat extends AbstractMoveableEntity {
 	protected int downKey;
 	protected double speed;
 	
+	//Keeping track of current oscillation parameters.
 	public boolean oscillate = false;
 	protected double amplitude;
 	protected double dampening;
 	protected boolean clockwise;
 	protected double x = 0;
 	
-	public AbstractBat(int n, double z, int upKey, int downKey, double speed) {
-		super(n, z);
+	/**
+	 * Bats are initialized with four vertices a given
+	 * z position, controls and speed. Note that vertices must
+	 * be declared serperately after contruction.
+	 * 
+	 * @param z
+	 * @param upKey	key used to move up
+	 * @param downKey	key used to move down
+	 * @param speed
+	 */
+	public AbstractBat(double z, int upKey, int downKey, double speed) {
+		super(4, z);
 		this.upKey = upKey;
 		this.downKey = downKey;
 		this.speed = speed;
 	}
 	
+	/**
+	 * Draws the bat with its standard texture. Four vertices
+	 * must have been declared.
+	 */
 	public void draw() {
 		int i = 0;
 		texture.bind();
@@ -54,6 +78,8 @@ public abstract class AbstractBat extends AbstractMoveableEntity {
 			glVertex3d(vertices.get(i)[0], vertices.get(i)[1], z);
 		glEnd();
 	}
+	
+	//The following methods are used to switch textures.
 	
 	public void topFire() {
 		texture = topFire;
@@ -75,22 +101,47 @@ public abstract class AbstractBat extends AbstractMoveableEntity {
 		texture = inverted;
 	}
 	
+	/**
+	 * Getter for the upKey.
+	 * 
+	 * @return	upKey
+	 */
 	public int getUpKey() {
 		return upKey;
 	}
 	
+	/**
+	 * Setter for the upKey.
+	 * 
+	 * @param upKey	new upKey
+	 */
 	public void setUpKey(int upKey) {
 		this.upKey = upKey;
 	}
 	
+	/**
+	 * Getter for the downKey.
+	 * 
+	 * @return	downKey
+	 */
 	public int getDownKey() {
 		return downKey;
 	}
 	
+	/**
+	 * Setter for the downKey.
+	 * 
+	 * @param upKey	new downKey
+	 */
 	public void setDownKey(int downKey) {
 		this.downKey = downKey;
 	}
 	
+	/**
+	 * Defines the bats movement based on keyboard input.
+	 * Moves up or down when upKey or upKey are pressed 
+	 * respectively. Doesn't move if keys are released.
+	 */
 	public void controls() {
 		if (Keyboard.isKeyDown(upKey) && getY() > 0) {
 			setDY(-speed);
@@ -103,6 +154,14 @@ public abstract class AbstractBat extends AbstractMoveableEntity {
 		}
 	}
 	
+	/**
+	 * Sets the oscillation parameters and activates the
+	 * oscillation.
+	 * 
+	 * @param amplitude
+	 * @param dampening
+	 * @param clockwise
+	 */
 	public void setOscillation(double amplitude, double dampening, boolean clockwise) {
 		oscillate = true;
 		this.amplitude = amplitude;
@@ -110,5 +169,8 @@ public abstract class AbstractBat extends AbstractMoveableEntity {
 		this.clockwise = clockwise;
 	}
 	
+	/**
+	 * Defines the oscillation.
+	 */
 	public abstract void oscillate();
 }

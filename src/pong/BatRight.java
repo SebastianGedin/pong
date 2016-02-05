@@ -5,8 +5,8 @@ import java.lang.Math;
 
 public class BatRight extends AbstractBat {
 	
-	public BatRight(int n, double z, int upKey, int downKey, double speed) {
-		super(n, z, upKey, downKey, speed);
+	public BatRight(double z, int upKey, int downKey, double speed) {
+		super(z, upKey, downKey, speed);
 		noFire = PongGame.loadTexture("rightSpaceship");
 		botFire = PongGame.loadTexture("rightSpaceshipBot");
 		topFire = PongGame.loadTexture("rightSpaceshipTop");

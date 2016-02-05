@@ -6,8 +6,8 @@ import org.lwjgl.input.Keyboard;
 
 public class BatLeft extends AbstractBat {
 	
-	public BatLeft(int n, double z, int upKey, int downKey, double speed) {
-		super(n, z, upKey, downKey, speed);
+	public BatLeft(double z, int upKey, int downKey, double speed) {
+		super(z, upKey, downKey, speed);
 		noFire = PongGame.loadTexture("leftSpaceship");
 		botFire = PongGame.loadTexture("leftSpaceshipBot");
 		topFire = PongGame.loadTexture("leftSpaceshipTop");

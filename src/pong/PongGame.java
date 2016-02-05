@@ -94,7 +94,7 @@ public class PongGame {
 	
 	private void setUpEntities() {
 		
-		background = new Background(4, 0);
+		background = new Background(0);
 		background.declareVertex(-WIDTH * 4, -80);
 		background.declareVertex(WIDTH * 4, -80);
 		background.declareVertex(WIDTH * 4, HEIGHT + 80);
@@ -104,7 +104,7 @@ public class PongGame {
 		// background = new Background(-WIDTH * 2, 0, 0, WIDTH * 5, HEIGHT);
 		
 		// batLeft = new Bat(30, HEIGHT / 2, -2, 15, 80, Keyboard.KEY_W, Keyboard.KEY_S, 0.3);
-		batLeft = new BatLeft(4, -2, Keyboard.KEY_W, Keyboard.KEY_S, 0.3);
+		batLeft = new BatLeft(-2, Keyboard.KEY_W, Keyboard.KEY_S, 0.3);
 		batLeft.declareVertex(10, HEIGHT / 2);
 		batLeft.declareVertex(55, HEIGHT / 2);
 		batLeft.declareVertex(55, HEIGHT / 2 + 90);
@@ -114,7 +114,7 @@ public class PongGame {
 		
 		
 		// batRight =new Bat(WIDTH - 40, HEIGHT / 2 - 80 /2, -2, 15, 80, Keyboard.KEY_UP, Keyboard.KEY_DOWN, 0.3);
-		batRight = new BatRight(4, -2, Keyboard.KEY_UP, Keyboard.KEY_DOWN, 0.3);
+		batRight = new BatRight(-2, Keyboard.KEY_UP, Keyboard.KEY_DOWN, 0.3);
 		batRight.declareVertex(WIDTH - 55, HEIGHT / 2);
 		batRight.declareVertex(WIDTH - 10, HEIGHT / 2);
 		batRight.declareVertex(WIDTH - 10, HEIGHT / 2 + 90);
@@ -123,7 +123,7 @@ public class PongGame {
 		movableEntities.add(batRight);
 		
 		// ball = new Ball(WIDTH / 2 - 10 / 2, HEIGHT / 2 - 10 / 2, -2, 10, 10);
-		ball = new Ball(4, -2);
+		ball = new Ball(-2);
 		ball.declareVertex(WIDTH / 2 - 7, HEIGHT / 2 - 7);
 		ball.declareVertex(WIDTH / 2 + 7, HEIGHT / 2 - 7);
 		ball.declareVertex(WIDTH / 2 + 7, HEIGHT / 2 + 7);

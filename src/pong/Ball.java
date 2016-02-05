@@ -9,8 +9,8 @@ public class Ball extends AbstractMoveableEntity {
 	
 	private Texture texture = PongGame.loadTexture("ball");
 
-	public Ball(int n, double z) {
-		super(n, z);
+	public Ball(double z) {
+		super(4, z);
 	}
 
 	@Override
