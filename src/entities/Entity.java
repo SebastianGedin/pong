@@ -47,9 +47,9 @@ public interface Entity {
 	public double getX();
 	
 	/**
-	 * Returns the smallest x-coordinate.
+	 * Returns the smallest y-coordinate.
 	 * 
-	 * @return	the smallest x-coordinate
+	 * @return	the smallest y-coordinate
 	 */
 	public double getY();
 	
@@ -61,7 +61,7 @@ public interface Entity {
 	public double getHeight();
 	
 	/**
-	 * Returns the difference between the greatest and smallest y-coordinates.
+	 * Returns the difference between the greatest and smallest x-coordinates.
 	 * 
 	 * @return the width of the entity
 	 */
